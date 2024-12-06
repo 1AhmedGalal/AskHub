@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AskHub", "AskHub.csproj", "{56BC030A-3B60-4F73-AE16-82124DCC14A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56BC030A-3B60-4F73-AE16-82124DCC14A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56BC030A-3B60-4F73-AE16-82124DCC14A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56BC030A-3B60-4F73-AE16-82124DCC14A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56BC030A-3B60-4F73-AE16-82124DCC14A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1A27AC2-6F58-4556-9419-64E7792A4470}
+	EndGlobalSection
+EndGlobal
