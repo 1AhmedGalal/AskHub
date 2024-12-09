@@ -16,6 +16,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = D:\PERSONAL\Programming Resources\Full-Stack\Back-End\5.0 MVC\Project\AskHub\AskHub
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/Account/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/Account/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

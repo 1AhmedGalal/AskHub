@@ -1,3 +1,4 @@
+using AskHub.Controllers;
 using AskHub.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -25,8 +26,14 @@ namespace AskHub
             //builder.Services.AddScoped<ICourseRepo, CourseSqlRepo>();
 
             builder.Services.AddIdentity<AppUser, IdentityRole>(
-                options => options.Password.RequireDigit = true
+                options =>
+                {
+                    options.Password.RequireDigit = true;
+                    //options.User.RequireUniqueEmail = true;
+                }
             ).AddEntityFrameworkStores<AppDbContext>();
+
+            
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
