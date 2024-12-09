@@ -1,3 +1,9 @@
+using AskHub.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace AskHub
 {
     public class Program
@@ -8,6 +14,28 @@ namespace AskHub
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // -------------------------------------------------------
+            builder.Services.AddDbContext<AppDbContext>(
+                optionsBuilder =>
+                {
+                    optionsBuilder.UseSqlServer("Data Source=DESKTOP-40BVR0R\\SQLEXPRESS;Initial Catalog=AskHubDb;Integrated Security=True");
+                });
+
+            //builder.Services.AddScoped<ICourseRepo, CourseSqlRepo>();
+
+            builder.Services.AddIdentity<AppUser, IdentityRole>(
+                options => options.Password.RequireDigit = true
+            ).AddEntityFrameworkStores<AppDbContext>();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromDays(14);
+                options.SlidingExpiration = true;
+            });
+
+            builder.Services.AddAuthorization();
+            //-------------------------------------------------------
 
             var app = builder.Build();
 
@@ -23,6 +51,8 @@ namespace AskHub
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
