@@ -23,6 +23,7 @@ namespace AskHub.ViewModels
         [DataType(DataType.Password)]
         [MaxLength(30)]
         [Compare("Password")]
+        [Display(Name = "Confirm Password")]
         public string? ConfirmedPassword { get; set; }
 
         public bool RememberMe { get; set; } = false;
