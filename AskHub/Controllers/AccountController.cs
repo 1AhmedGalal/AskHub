@@ -31,8 +31,8 @@ namespace AskHub.Controllers
             {
                 AppUser user = new AppUser()
                 {
-                    UserName = userViewModel.Email,
-                    Name = userViewModel.Name,
+                    UserName = userViewModel.Username,
+                    Email = userViewModel.Email,
                     PasswordHash = userViewModel.Password,
                 };
 

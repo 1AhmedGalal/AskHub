@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AskHub.Migrations
 {
-    public partial class MakingDb : Migration
+    public partial class kp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -154,6 +154,36 @@ namespace AskHub.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Questions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Seen = table.Column<bool>(type: "bit", nullable: false),
+                    SourceAppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DestinationAppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.CheckConstraint("CK_Questions_SourceDestinationNotEqual", "[SourceAppUserId] IS NULL OR [DestinationAppUserId] IS NULL OR [SourceAppUserId] <> [DestinationAppUserId]");
+                    table.ForeignKey(
+                        name: "FK_Questions_AspNetUsers_DestinationAppUserId",
+                        column: x => x.DestinationAppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Questions_AspNetUsers_SourceAppUserId",
+                        column: x => x.SourceAppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +222,16 @@ namespace AskHub.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_DestinationAppUserId",
+                table: "Questions",
+                column: "DestinationAppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Questions_SourceAppUserId",
+                table: "Questions",
+                column: "SourceAppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,6 +250,9 @@ namespace AskHub.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

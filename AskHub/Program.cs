@@ -1,5 +1,6 @@
 using AskHub.Controllers;
 using AskHub.Models;
+using AskHub.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,20 +21,16 @@ namespace AskHub
             builder.Services.AddDbContext<AppDbContext>(
                 optionsBuilder =>
                 {
-                    optionsBuilder.UseSqlServer("Data Source=DESKTOP-40BVR0R\\SQLEXPRESS;Initial Catalog=AskHubDb;Integrated Security=True");
+                    optionsBuilder.UseSqlServer("Data Source=DESKTOP-40BVR0R\\SQLEXPRESS;Initial Catalog=AskHubDatabase;Integrated Security=True");
                 });
 
-            //builder.Services.AddScoped<ICourseRepo, CourseSqlRepo>();
+            builder.Services.AddScoped<IQuestionRepository, QuestionSqlRepository>();
 
-            builder.Services.AddIdentity<AppUser, IdentityRole>(
-                options =>
-                {
-                    options.Password.RequireDigit = true;
-                    //options.User.RequireUniqueEmail = true;
-                }
-            ).AddEntityFrameworkStores<AppDbContext>();
-
-            
+            builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<AppDbContext>();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

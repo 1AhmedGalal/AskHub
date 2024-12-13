@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AskHub.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace AskHub.Models
+public class AppUser : IdentityUser
 {
-    public class AppUser : IdentityUser
-    {
-        public string? Name { get; set; }
-    }
+    public ICollection<Question> SourceQuestions { get; set; } = new List<Question>(); // Questions sent by this user
+    public ICollection<Question> DestinationQuestions { get; set; } = new List<Question>(); // Questions received by this user
 }

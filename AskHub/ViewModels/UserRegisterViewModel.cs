@@ -12,7 +12,7 @@ namespace AskHub.ViewModels
         [Required]
         [MinLength(1)]
         [MaxLength(20)]
-        public string? Name { get; set; }
+        public string? Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
