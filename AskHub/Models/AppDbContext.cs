@@ -9,6 +9,8 @@ namespace AskHub.Models
 
         public DbSet<Question> Questions { get; set; }
 
+        public DbSet<Answer> Answers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppUser>()
@@ -24,8 +26,15 @@ namespace AskHub.Models
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Question>()
-       .HasCheckConstraint("CK_Questions_SourceDestinationNotEqual",
-           "[SourceAppUserId] IS NULL OR [DestinationAppUserId] IS NULL OR [SourceAppUserId] <> [DestinationAppUserId]");
+                .HasCheckConstraint("CK_Questions_SourceDestinationNotEqual",
+                                    "[SourceAppUserId] IS NULL OR [DestinationAppUserId] IS NULL OR [SourceAppUserId] <> [DestinationAppUserId]");
+
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.Answer)
+                .WithOne(a => a.Question)
+                .HasForeignKey<Answer>(a => a.QuestionId)
+                .IsRequired(false); 
+
             base.OnModelCreating(modelBuilder);
         }
 

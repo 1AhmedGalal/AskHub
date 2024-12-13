@@ -20,5 +20,9 @@ namespace AskHub.Models
         public string? DestinationAppUserId { get; set; } = null!;
 
         public AppUser? DestinationAppUser { get; set; } = null!;
+
+        public int? AnswerId { get; set; }
+        
+        public Answer? Answer { get; set; }
     }
 }
