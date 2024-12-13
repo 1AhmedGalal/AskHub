@@ -47,9 +47,6 @@ namespace AskHub.Controllers
                 {
                     foreach(var error in result.Errors)
                     {
-                        if (error.Description.Contains("Username"))
-                            error.Description = "Email Already Used";
-
                         ModelState.AddModelError("", error.Description);
                     }
                 }
@@ -69,7 +66,7 @@ namespace AskHub.Controllers
         {
             if (ModelState.IsValid)
             {
-                AppUser user = await _userManager.FindByNameAsync(userViewModel.Email);
+                AppUser user = await _userManager.FindByEmailAsync(userViewModel.Email);
                 if (user is not null)
                 {
                     bool correctPassword = await _userManager.CheckPasswordAsync(user, userViewModel.Password);
@@ -91,6 +88,68 @@ namespace AskHub.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult Update()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateViewModel userViewModel)
+        {
+            if (User.Identity is not null && User.Identity.IsAuthenticated)
+            {
+                AppUser user = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)!;
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    user.PasswordHash = userViewModel.Password;
+                    result = await _userManager.CreateAsync(user, userViewModel.Password);
+
+                    if (result.Succeeded)
+                    {
+                        ViewBag.Message = "Updated Password Successfully";
+                    }
+                    else
+                    {
+                        ViewBag.Message = null;
+                    }
+                }
+                
+                return View(userViewModel);
+            }
+            else
+            {
+                return NotFound("User not found.");
+            }
+        }
+
+
+
+        public async Task<IActionResult> Delete()
+        {
+            if (User.Identity is not null && User.Identity.IsAuthenticated)
+            {
+                AppUser user = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)!;
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignOutAsync();
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
+            else
+            {
+                return NotFound("User not found.");
+            }
         }
     }
 }
