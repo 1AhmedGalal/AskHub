@@ -22,7 +22,7 @@ namespace AskHub.Repositories
         {
             Question? question = GetByQuestionId(id);
 
-            if (question is not null)
+            if (question is not null && !question.Seen)
             {
                 _appDbContext.Questions.Remove(question);
             }
@@ -51,13 +51,13 @@ namespace AskHub.Repositories
             return _appDbContext.Questions.FirstOrDefault(q => q.Id == id);
         }
 
-        public void Update(Question newQuestion)
+        public void Update(Question question)
         {
-            Question? oldQuestion = GetByQuestionId(newQuestion.Id);
+            Question? oldQuestion = GetByQuestionId(question.Id);
 
             if (oldQuestion is not null && !oldQuestion.Seen)
             {
-                oldQuestion.Content = newQuestion.Content;
+                oldQuestion.Content = question.Content;
                 _appDbContext.SaveChanges();
             }
             else

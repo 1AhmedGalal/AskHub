@@ -103,7 +103,7 @@ namespace AskHub.Controllers
             {
                 AppUser user = _userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name)!;
                 var result = await _userManager.DeleteAsync(user);
-
+                
                 if (result.Succeeded)
                 {
                     user.PasswordHash = userViewModel.Password;

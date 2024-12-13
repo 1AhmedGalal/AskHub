@@ -4,13 +4,19 @@ namespace AskHub.ViewModels
 {
     public class QuestionViewModel
     {
-        [Required]
-        [MinLength(10)]
-        [MaxLength(300)]
+        public int Id { get; set; }
+
         [Display(Name = "Question: ")]
         public string Content { get; set; } = null!;
 
-        public bool AskAnonymously { get; set; } = false;
+        [Display(Name = "Sent By: ")]
+        public string? SourceUsername { get; set; } = null!;
+
+        [Display(Name = "Sent To: ")]
+        public string? DestinationUsername { get; set; } = null!;
+
+        [Display(Name = "Date: ")]
+        public DateTime DateTime { get; set; }
 
     }
 }

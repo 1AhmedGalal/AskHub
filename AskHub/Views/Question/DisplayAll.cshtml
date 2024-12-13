@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "DisplayAll";
+}
+
+@model List<AskHub.ViewModels.QuestionViewModel>
+
+@foreach (AskHub.ViewModels.QuestionViewModel question in Model)
+{
+    //display things in QuestionViewModel
+    <h4>Model.Content</h4>
+    <h4>Model.SourceUsername</h4>
+    <h4>Model.DestinationUsername</h4>
+    <h4>Model.Content</h4>
+}
+
+<h1>DisplayAll</h1>
+
