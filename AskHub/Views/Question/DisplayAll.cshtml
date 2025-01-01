@@ -7,10 +7,26 @@
 @foreach (AskHub.ViewModels.QuestionViewModel question in Model)
 {
     //display things in QuestionViewModel
-    <h4>Model.Content</h4>
-    <h4>Model.SourceUsername</h4>
-    <h4>Model.DestinationUsername</h4>
-    <h4>Model.Content</h4>
+
+    <h4>---------------------</h4>
+    <h4>@question.Content</h4>
+    <h4>SRC: @question.SourceUsername</h4>
+    <h4>DST: @question.DestinationUsername</h4>
+
+    if (User.Identity!.IsAuthenticated)
+    {
+        string currentUsername = User.Identity.Name!;
+        if (currentUsername == question.SourceUsername)
+        {
+            <form action="@Url.Action("Update", "Question", new { id = question.Id })" method="get">
+                <button type="submit" class="btn btn-primary">Send Question</button>
+            </form>
+        }
+    }
+
+
+    <h4>---------------------</h4>
+
 }
 
 <h1>DisplayAll</h1>

@@ -1,5 +1,6 @@
 ﻿using AskHub.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace AskHub.Repositories
 {
@@ -25,6 +26,7 @@ namespace AskHub.Repositories
             if (question is not null && !question.Seen)
             {
                 _appDbContext.Questions.Remove(question);
+                _appDbContext.SaveChanges();
             }
             else
             {
@@ -36,15 +38,22 @@ namespace AskHub.Repositories
         {
             if (direction == QuestionDirection.SOURCE)
             {
-                return _appDbContext.Questions.Where(q => q.SourceAppUser != null
-                                                      && q.SourceAppUserId == userId).ToList();
+                return _appDbContext.Questions
+                    .Include(q => q.SourceAppUser) // Include SourceAppUser
+                    .Include(q => q.DestinationAppUser) // Include DestinationAppUser
+                    .Where(q => q.SourceAppUserId == userId)
+                    .ToList();
             }
             else
             {
-                return _appDbContext.Questions.Where(q => q.DestinationAppUser != null
-                                                      && q.DestinationAppUserId == userId).ToList();
+                return _appDbContext.Questions
+                    .Include(q => q.SourceAppUser) // Include SourceAppUser
+                    .Include(q => q.DestinationAppUser) // Include DestinationAppUser
+                    .Where(q => q.DestinationAppUserId == userId)
+                    .ToList();
             }
         }
+
 
         public Question? GetByQuestionId(int id)
         {

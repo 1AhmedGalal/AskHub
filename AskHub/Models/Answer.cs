@@ -9,5 +9,7 @@
         public int QuestionId { get; set; }
 
         public Question Question { get; set; } = null!;
+
+        DateTime CreatedDate { get; set; }
     }
 }

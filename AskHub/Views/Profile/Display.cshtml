@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Display";
+}
+
+<h1>Display</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    string username = User.Identity.Name;
+    string currUsername = ViewBag.username;
+
+    if(username != currUsername)
+    {
+        <form action="@Url.Action("Add", "Question", new { id = currUsername })" method="get">
+            <button type="submit" class="btn btn-primary">Send Question</button>
+        </form>
+
+    }
+
+    <form action="@Url.Action("DisplayAll", "Question", new { id = "dst" + currUsername })" method="get">
+        <button type="submit" class="btn btn-primary">Display Questions</button>
+    </form>
+
+
+    <h2>username: @username</h2>
+    <h2>curr: @currUsername</h2>
+
+    
+
+}

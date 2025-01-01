@@ -14,17 +14,17 @@ namespace AskHub.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AppUser>()
-                .HasMany(u => u.SourceQuestions) // Configure SourceQuestions
-                .WithOne(q => q.SourceAppUser)
-                .HasForeignKey(q => q.SourceAppUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+    .HasMany(u => u.SourceQuestions) // Configure SourceQuestions
+    .WithOne(q => q.SourceAppUser)
+    .HasForeignKey(q => q.SourceAppUserId)
+    .OnDelete(DeleteBehavior.Restrict); // Restrict delete to avoid cascade cycle
 
             modelBuilder.Entity<AppUser>()
                 .HasMany(u => u.DestinationQuestions) // Configure DestinationQuestions
                 .WithOne(q => q.DestinationAppUser)
                 .HasForeignKey(q => q.DestinationAppUserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
+                .OnDelete(DeleteBehavior.Restrict); // Cascade delete for destination user
+            
             modelBuilder.Entity<Question>()
                 .HasCheckConstraint("CK_Questions_SourceDestinationNotEqual",
                                     "[SourceAppUserId] IS NULL OR [DestinationAppUserId] IS NULL OR [SourceAppUserId] <> [DestinationAppUserId]");
