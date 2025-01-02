@@ -4,30 +4,52 @@
 
 @model List<AskHub.ViewModels.QuestionViewModel>
 
-@foreach (AskHub.ViewModels.QuestionViewModel question in Model)
+@if (User.Identity != null && User.Identity.IsAuthenticated)
 {
-    //display things in QuestionViewModel
+    <div class="container mt-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                @foreach (AskHub.ViewModels.QuestionViewModel question in Model)
+                {
+                    string loggedInUsername = User.Identity.Name!;
+                    string profileOwnerUsername = ViewBag.username;
 
-    <h4>---------------------</h4>
-    <h4>@question.Content</h4>
-    <h4>SRC: @question.SourceUsername</h4>
-    <h4>DST: @question.DestinationUsername</h4>
+                    <div class="shadow-lg p-4 rounded mb-4" style="background-color: var(--secondary-color); word-wrap: break-word;">
+                        <h4 style="color: #333;">Question:</h4>
+                        <br />
+                        <h4 style="color: #333;">@question.Content</h4>
+                        <br/>
+                        <p style="color: #666;">By: <strong>@question.SourceUsername</strong></p>
+                        <p style="color: #666;">To: <strong>@question.DestinationUsername</strong></p>
 
-    if (User.Identity!.IsAuthenticated)
-    {
-        string currentUsername = User.Identity.Name!;
-        if (currentUsername == question.SourceUsername)
-        {
-            <form action="@Url.Action("Update", "Question", new { id = question.Id })" method="get">
-                <button type="submit" class="btn btn-primary">Send Question</button>
-            </form>
-        }
-    }
+                        @if (loggedInUsername == question.SourceUsername && !question.Seen)
+                        {
+                            <div class="d-flex justify-content-between mt-3">
+                                <form action="@Url.Action("Update", "Question", new { id = question.Id })" method="get">
+                                    <button type="submit" class="btn btn-primary btn-lg"
+                                            style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                        Update Question
+                                    </button>
+                                </form>
 
-
-    <h4>---------------------</h4>
-
+                                <form action="@Url.Action("Delete", "Question", new { id = question.Id })" method="get">
+                                    <button type="submit" class="btn btn-danger btn-lg">
+                                        Delete Question
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 }
-
-<h1>DisplayAll</h1>
-
+else
+{
+    <div class="container mt-5">
+        <div class="alert alert-warning text-center" role="alert" style="background-color: #fff3cd; border-color: #ffeeba; color: #856404;">
+            Please Login To Be Able To View This Page!
+        </div>
+    </div>
+}

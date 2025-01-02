@@ -28,23 +28,22 @@ namespace AskHub.Controllers
         public async Task<IActionResult> DisplayAll(string id)
         {
             QuestionDirection direction = QuestionDirection.DESTINATION;
-            
-            if (id.Substring(0, 3) == "dst")
+
+            string dir = id.Substring(1, 3);
+            if (dir == "dst")
             {
                 direction = QuestionDirection.DESTINATION;
-                //destinationUsername = id;
             }
-            else if(id.Substring(0, 3) == "src")
+            else if(dir == "src")
             {
                 direction = QuestionDirection.SOURCE;
-                //sourceUsername = id;
             }
             else
             {
                 throw new Exception("Invalid Choice");
             }
 
-            string username = id.Substring(3, id.Length - 3);
+            string username = id.Substring(4, id.Length - 4);
             var givenUser = await _userManager.FindByNameAsync(username);
             string userId = givenUser.Id;
 
@@ -59,9 +58,12 @@ namespace AskHub.Controllers
             List<QuestionViewModel> displayedQuestions = new List<QuestionViewModel>();
             string? sourceUsername = null;
             string? destinationUsername = null;
-
+            
             foreach (Question question in questions)
             {
+                if (id.Substring(0, 1) == "0" && !question.Seen)
+                    continue;
+
                 if (question.SourceAppUser is null)
                     sourceUsername = "None";
                 else
@@ -75,7 +77,8 @@ namespace AskHub.Controllers
                     Content = question.Content,
                     SourceUsername = sourceUsername,
                     DestinationUsername = question.DestinationAppUser!.UserName,
-                    DateTime = question.CreatedDate
+                    DateTime = question.CreatedDate,
+                    Seen = question.Seen
                 };
                 displayedQuestions.Add(askedQuestion);
             }
@@ -106,7 +109,7 @@ namespace AskHub.Controllers
                 throw new Exception("Can't Send Message To Yourself");
             }
 
-            //ViewBag.Succeeded = false;
+            ViewBag.Succeeded = null;
 
             if (questionViewModel != null && ModelState.IsValid)
             {
@@ -122,7 +125,7 @@ namespace AskHub.Controllers
                 };
 
                 _questionRepository.Add(question);
-                //ViewBag.Succeeded = true;
+                ViewBag.Succeeded = "success";
             }
 
             return View(questionViewModel);
@@ -141,7 +144,7 @@ namespace AskHub.Controllers
              may need to add the old text first by myself!!!!!!!!!!!!!!!!!!!!
              */
 
-            ViewBag.Succeded = false;
+            ViewBag.Succeeded = null;
             Question question = _questionRepository.GetByQuestionId(id)!;
 
             if (question is null || question.Seen)
@@ -154,7 +157,7 @@ namespace AskHub.Controllers
                 {
                     question.Content = questionViewModel.Content;
                     _questionRepository.Update(question);
-                    ViewBag.Succeded = true;
+                    ViewBag.Succeeded = "success";
                 }
                 catch
                 {
@@ -167,15 +170,16 @@ namespace AskHub.Controllers
 
         public IActionResult Delete(int id)
         {
-            ViewBag.Succeeded = true;
+            ViewBag.Succeeded = null;
 
             try
             {
                 _questionRepository.Delete(id);
+                ViewBag.Succeeded = "success";
             }
             catch
             {
-                ViewBag.Succeeded = false;
+                ViewBag.Succeeded = null;
             }
 
             return View();

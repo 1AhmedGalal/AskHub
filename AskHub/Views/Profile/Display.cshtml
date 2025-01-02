@@ -1,31 +1,97 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Display";
+    string primaryColor = "#81BFDA";
+    string secondaryColor = "#B1F0F7";
+    string tertiaryColor = "#fffef7";
+    string accentColor = "#FADA7A";
 }
 
-<h1>Display</h1>
+<div class="profile-container">
+    <div class="red-circle"></div>
+    <div class="profile-name">@ViewBag.username</div>
 
-@if (User.Identity.IsAuthenticated)
-{
-    string username = User.Identity.Name;
-    string currUsername = ViewBag.username;
+    <div class="profile-buttons">
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            string loggedInUsername = User.Identity.Name!;
+            string profileOwnerUsername = ViewBag.username;
 
-    if(username != currUsername)
-    {
-        <form action="@Url.Action("Add", "Question", new { id = currUsername })" method="get">
-            <button type="submit" class="btn btn-primary">Send Question</button>
-        </form>
+            @if (loggedInUsername != profileOwnerUsername)
+            {
+                <a href="@Url.Action("Add", "Question", new { id = profileOwnerUsername })" class="profile-button">Send Question</a>
+                <a href="@Url.Action("DisplayAll", "Question", new { id = "0" + "dst" + profileOwnerUsername })" class="profile-button">View Questions</a>
+            }
+            else
+            {
+                <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "dst" + profileOwnerUsername })" class="profile-button">Questions To Me</a>
+                <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "src" + profileOwnerUsername })" class="profile-button">Questions By Me</a>
+            }
+        }
+        else
+        {
+            <div class="login-warning">Please Login To Be Able To View This Page!</div>
+        }
+    </div>
+</div>
 
+<style>
+    /* Styling for the profile page */
+    .profile-container {
+        background-color: var(--secondary-color);
+        border-radius: 10px;
+        padding: 20px;
+        width: 300px;
+        margin: 0 auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
-    <form action="@Url.Action("DisplayAll", "Question", new { id = "dst" + currUsername })" method="get">
-        <button type="submit" class="btn btn-primary">Display Questions</button>
-    </form>
+    .red-circle {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+    }
 
+    .profile-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 15px;
+    }
 
-    <h2>username: @username</h2>
-    <h2>curr: @currUsername</h2>
+    .profile-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        margin-top: 15px;
+    }
 
-    
+    .profile-button {
+        background-color: #81BFDA;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%; /* Buttons are full-width */
+        max-width: 200px; /* Limit maximum button width */
+    }
 
-}
+        .profile-button:hover {
+            background-color: var(--primary-color);
+            color: var(--tertiary-color);
+        }
+
+    .login-warning {
+        font-size: 18px;
+        color: var(--accent-color);
+        margin-top: 20px;
+    }
+</style>

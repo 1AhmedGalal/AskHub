@@ -18,5 +18,6 @@ namespace AskHub.ViewModels
         [Display(Name = "Date: ")]
         public DateTime DateTime { get; set; }
 
+        public bool Seen {  get; set; }
     }
 }

@@ -3,15 +3,17 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-@if (ViewBag.Succeeded)
+@if (ViewBag.Succeeded != null)
 {
-    <h1>DEleted messgae</h1>
+    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb;">
+        <h2 class="m-0">Question Was Deleted</h2>
+    </div>
 }
 else
 {
-    <h1>Didnt delete messgae</h1>
+    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb;">
+        <h2 class="m-0">Question Was Not Deleted</h2>
+    </div>
 
 }
 
