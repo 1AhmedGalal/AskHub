@@ -10,6 +10,6 @@
 
         public Question Question { get; set; } = null!;
 
-        DateTime CreatedDate { get; set; }
+        //public DateTime CreatedDate { get; set; }
     }
 }

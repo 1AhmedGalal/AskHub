@@ -96,7 +96,6 @@
                                 <a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Display" asp-route-id="@User.Identity.Name">Profile</a>
                             </li>
 
-
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Update">Update Info</a>
                             </li>
@@ -104,7 +103,16 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
                             </li>
+
+                            <!-- Search Form -->
+                            <li class="nav-item ms-auto">
+                                <form asp-controller="Profile" asp-action="Display" method="get" class="d-flex">
+                                    <input type="text" name="id" class="form-control me-2" placeholder="Search for a profile" required />
+                                    <button type="submit" class="btn btn-outline-light">Search</button>
+                                </form>
+                            </li>
                         }
+
                         else
                         {
                             <li class="nav-item">

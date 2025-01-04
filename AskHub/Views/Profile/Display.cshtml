@@ -7,24 +7,35 @@
 }
 
 <div class="profile-container">
-    <div class="red-circle"></div>
+    <div class="profile-picture">
+        <img src="~/pics/default_profile_picture.jpg" alt="Profile Picture" class="profile-image" />
+    </div>
     <div class="profile-name">@ViewBag.username</div>
 
     <div class="profile-buttons">
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            string loggedInUsername = User.Identity.Name!;
-            string profileOwnerUsername = ViewBag.username;
-
-            @if (loggedInUsername != profileOwnerUsername)
+            @if (ViewBag.username == null)
             {
-                <a href="@Url.Action("Add", "Question", new { id = profileOwnerUsername })" class="profile-button">Send Question</a>
-                <a href="@Url.Action("DisplayAll", "Question", new { id = "0" + "dst" + profileOwnerUsername })" class="profile-button">View Questions</a>
+                <div class="alert alert-danger text-center" role="alert" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
+                    <h2 class="m-0">Account Not Found</h2>
+                </div>
             }
             else
             {
-                <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "dst" + profileOwnerUsername })" class="profile-button">Questions To Me</a>
-                <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "src" + profileOwnerUsername })" class="profile-button">Questions By Me</a>
+                string loggedInUsername = User.Identity.Name!;
+                string profileOwnerUsername = ViewBag.username;
+
+                @if (loggedInUsername != profileOwnerUsername)
+                {
+                    <a href="@Url.Action("Add", "Question", new { id = profileOwnerUsername })" class="profile-button">Send Question</a>
+                    <a href="@Url.Action("DisplayAll", "Question", new { id = "0" + "dst" + profileOwnerUsername })" class="profile-button">View Questions</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "dst" + profileOwnerUsername })" class="profile-button">Questions To Me</a>
+                    <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "src" + profileOwnerUsername })" class="profile-button">Questions By Me</a>
+                }
             }
         }
         else
@@ -46,12 +57,21 @@
         text-align: center;
     }
 
-    .red-circle {
+    .profile-picture {
         width: 100px;
         height: 100px;
-        background-color: red;
-        border-radius: 50%;
         margin: 0 auto 15px;
+        border-radius: 50%;
+        overflow: hidden; /* Ensures the image is clipped to a circle */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image scales nicely */
     }
 
     .profile-name {

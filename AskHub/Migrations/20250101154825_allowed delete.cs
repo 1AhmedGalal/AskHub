@@ -8,32 +8,32 @@ namespace AskHub.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_AspNetUsers_SourceAppUserId",
-                table: "Questions");
+            //migrationBuilder.DropForeignKey(
+            //    name: "FK_Questions_AspNetUsers_SourceAppUserId",
+            //    table: "Questions");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_AspNetUsers_SourceAppUserId",
-                table: "Questions",
-                column: "SourceAppUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+            //migrationBuilder.AddForeignKey(
+            //    name: "FK_Questions_AspNetUsers_SourceAppUserId",
+            //    table: "Questions",
+            //    column: "SourceAppUserId",
+            //    principalTable: "AspNetUsers",
+            //    principalColumn: "Id",
+            //    onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Questions_AspNetUsers_SourceAppUserId",
-                table: "Questions");
+            //migrationBuilder.DropForeignKey(
+            //    name: "FK_Questions_AspNetUsers_SourceAppUserId",
+            //    table: "Questions");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Questions_AspNetUsers_SourceAppUserId",
-                table: "Questions",
-                column: "SourceAppUserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+            //migrationBuilder.AddForeignKey(
+            //    name: "FK_Questions_AspNetUsers_SourceAppUserId",
+            //    table: "Questions",
+            //    column: "SourceAppUserId",
+            //    principalTable: "AspNetUsers",
+            //    principalColumn: "Id",
+            //    onDelete: ReferentialAction.Cascade);
         }
     }
 }

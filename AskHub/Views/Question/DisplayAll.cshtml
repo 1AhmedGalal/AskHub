@@ -21,6 +21,7 @@
                         <br/>
                         <p style="color: #666;">By: <strong>@question.SourceUsername</strong></p>
                         <p style="color: #666;">To: <strong>@question.DestinationUsername</strong></p>
+                        <p style="color: #666;">Date: <strong>@question.DateTime</strong></p>
 
                         @if (loggedInUsername == question.SourceUsername && !question.Seen)
                         {
@@ -39,6 +40,46 @@
                                 </form>
                             </div>
                         }
+                        else if (loggedInUsername == question.DestinationUsername && !question.Seen)
+                        {
+                            <div class="d-flex justify-content-between mt-3">
+                                <form action="@Url.Action("Add", "Answer", new { id = question.Id })" method="get">
+                                    <button type="submit" class="btn btn-primary btn-lg"
+                                            style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                        Answer Question
+                                    </button>
+                                </form>
+
+                                <form action="@Url.Action("Delete", "Question", new { id = question.Id })" method="get">
+                                    <button type="submit" class="btn btn-danger btn-lg">
+                                        Ignore Question
+                                    </button>
+                                </form>
+                            </div>
+                        }
+                        else if(question.Seen)
+                        {
+                            <div class="d-flex justify-content-between mt-3">
+                                <form action="@Url.Action("Display", "Answer", new { id = question.Id })" method="get">
+                                    <button type="submit" class="btn btn-primary btn-lg"
+                                            style="background-color: var(--primary-color); border-color: var(--primary-color);">
+                                        Show Answer
+                                    </button>
+                                </form>
+
+                                @if (loggedInUsername == question.DestinationUsername)
+                                {
+                                    <form action="@Url.Action("Delete", "Question", new { id = question.Id })" method="get">
+                                        <button type="submit" class="btn btn-danger btn-lg">
+                                            Delete Question
+                                        </button>
+                                    </form>
+                                }
+
+                            </div>
+
+                        }
+
                     </div>
                 }
             </div>

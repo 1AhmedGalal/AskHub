@@ -15,5 +15,7 @@ namespace AskHub.Repositories
 
         List<Question>? GetAllByUserId(string userId, QuestionDirection direction);
 
+        public void MarkAsSeen(Question question);
+
     }
 }

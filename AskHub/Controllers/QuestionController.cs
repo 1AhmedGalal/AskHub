@@ -61,8 +61,8 @@ namespace AskHub.Controllers
             
             foreach (Question question in questions)
             {
-                if (id.Substring(0, 1) == "0" && !question.Seen)
-                    continue;
+                //if (id.Substring(0, 1) == "0" && !question.Seen)
+                //    continue;
 
                 if (question.SourceAppUser is null)
                     sourceUsername = "None";

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fr+7IfndgFtirs5lfts4rgLnW1rv3WYR8j7FB0TqEy0=",
+  "Hash": "nR5E2z3D8JHksyiCdjDb8ISPDvWM9c4590brWypb6Yw=",
   "Source": "AskHub",
   "BasePath": "_content/AskHub",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\PERSONAL\\Programming Resources\\Full-Stack\\Back-End\\5.0 MVC\\Project\\AskHub\\AskHub\\wwwroot\\pics\\default_profile_picture.jpg",
+      "SourceId": "AskHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\PERSONAL\\Programming Resources\\Full-Stack\\Back-End\\5.0 MVC\\Project\\AskHub\\AskHub\\wwwroot\\",
+      "BasePath": "_content/AskHub",
+      "RelativePath": "pics/default_profile_picture.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\pics\\default_profile_picture.jpg"
     }
   ]
 }

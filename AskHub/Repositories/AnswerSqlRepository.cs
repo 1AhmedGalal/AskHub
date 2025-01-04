@@ -1,4 +1,5 @@
 ﻿using AskHub.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AskHub.Repositories
 {
@@ -36,7 +37,9 @@ namespace AskHub.Repositories
 
         public Answer? GetByQuestionId(int id)
         {
-            return _appDbContext.Answers.FirstOrDefault(a => a.QuestionId == id);
+            return _appDbContext.Answers
+                .Include(a => a.Question) // Include the related Question
+                .FirstOrDefault(a => a.QuestionId == id);
         }
 
         private void delete(Answer? answer)

@@ -1,0 +1,23 @@
+﻿@model AskHub.ViewModels.AnswerViewModel
+
+@{
+    ViewData["Title"] = "Display";
+}
+
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="shadow-lg p-4 rounded" style="background-color: var(--secondary-color);">
+                <div class="mb-3">
+                    <label class="fw-bold" style="color: #333;">
+                        @Html.DisplayNameFor(model => model.Content)
+                    </label>
+                    <div class="p-3 rounded" style="background-color: #f8f9fa; border: 1px solid var(--primary-color);">
+                        @Html.DisplayFor(model => model.Content)
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
