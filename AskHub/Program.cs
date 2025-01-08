@@ -21,7 +21,7 @@ namespace AskHub
             builder.Services.AddDbContext<AppDbContext>(
                 optionsBuilder =>
                 {
-                    optionsBuilder.UseSqlServer("Data Source=DESKTOP-40BVR0R\\SQLEXPRESS;Initial Catalog=AskHubDatabase;Integrated Security=True");
+                    optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=AskHubDatabase;Integrated Security=True");
                 });
 
             builder.Services.AddScoped<IQuestionRepository, QuestionSqlRepository>();
