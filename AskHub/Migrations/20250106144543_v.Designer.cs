@@ -4,6 +4,7 @@ using AskHub.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AskHub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250106144543_v")]
+    partial class v
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,6 +73,7 @@ namespace AskHub.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -110,27 +113,6 @@ namespace AskHub.Migrations
                     b.ToTable("Answers");
                 });
 
-            modelBuilder.Entity("AskHub.Models.FollowUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FollowerUsername")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FollowingUsername")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("FollowUsers");
-                });
-
             modelBuilder.Entity("AskHub.Models.Question", b =>
                 {
                     b.Property<int>("Id")
@@ -167,6 +149,21 @@ namespace AskHub.Migrations
                     b.ToTable("Questions");
 
                     b.HasCheckConstraint("CK_Questions_SourceDestinationNotEqual", "[SourceAppUserId] IS NULL OR [DestinationAppUserId] IS NULL OR [SourceAppUserId] <> [DestinationAppUserId]");
+                });
+
+            modelBuilder.Entity("AskHub.Models.UserFollower", b =>
+                {
+                    b.Property<string>("FollowerUsername")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("FollowingUsername")
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("FollowerUsername", "FollowingUsername");
+
+                    b.HasIndex("FollowingUsername");
+
+                    b.ToTable("UserFollows");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -328,6 +325,27 @@ namespace AskHub.Migrations
                     b.Navigation("SourceAppUser");
                 });
 
+            modelBuilder.Entity("AskHub.Models.UserFollower", b =>
+                {
+                    b.HasOne("AppUser", "Follower")
+                        .WithMany("Following")
+                        .HasForeignKey("FollowerUsername")
+                        .HasPrincipalKey("UserName")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("AppUser", "Following")
+                        .WithMany("Followers")
+                        .HasForeignKey("FollowingUsername")
+                        .HasPrincipalKey("UserName")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Follower");
+
+                    b.Navigation("Following");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -382,6 +400,10 @@ namespace AskHub.Migrations
             modelBuilder.Entity("AppUser", b =>
                 {
                     b.Navigation("DestinationQuestions");
+
+                    b.Navigation("Followers");
+
+                    b.Navigation("Following");
 
                     b.Navigation("SourceQuestions");
                 });

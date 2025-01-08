@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "DisplayAllFollowings";
+    string primaryColor = "#81BFDA";
+    string secondaryColor = "#B1F0F7";
+    string tertiaryColor = "#fffef7";
+    string accentColor = "#FADA7A";
+}
+
+@model List<string>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-success text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb;">
+        <h2 class="m-0">List is Empty</h2>
+    </div>
+}
+else
+{
+    @foreach (string username in Model)
+    {
+        <div class="user-item">
+            <div class="username-container">
+                <span class="username">@username</span>
+            </div>
+            <a href="@Url.Action("Display", "Profile", new { id = username })" class="profile-button">View Profile</a>
+        </div>
+    }
+}
+
+<style>
+    /* Container for individual users */
+    .user-item {
+        background-color: var(--secondary-color);
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Username style */
+    .username-container {
+        background-color: var(--primary-color);
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+
+    .username {
+        font-size: 22px;
+        font-weight: bold;
+        color: #fff; /* White color for text */
+    }
+
+    /* Profile button */
+    .profile-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+        .profile-button:hover {
+            background-color: var(--primary-color); /* Change background color on hover */
+            color: var(--tertiary-color); /* Change text color if needed */
+        }
+
+    /* Alert style for empty list */
+    .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+</style>

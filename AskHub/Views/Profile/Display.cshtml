@@ -15,7 +15,7 @@
     <div class="profile-buttons">
         @if (User.Identity != null && User.Identity.IsAuthenticated)
         {
-            @if (ViewBag.username == null)
+            if (ViewBag.username == null)
             {
                 <div class="alert alert-danger text-center" role="alert" style="background-color: #f8d7da; border-color: #f5c6cb; color: #721c24;">
                     <h2 class="m-0">Account Not Found</h2>
@@ -26,13 +26,30 @@
                 string loggedInUsername = User.Identity.Name!;
                 string profileOwnerUsername = ViewBag.username;
 
+                <div class="followers-info">
+                    Followers: <span class="followers-count">@ViewBag.FollowersCount</span>
+                </div>
+
                 @if (loggedInUsername != profileOwnerUsername)
                 {
+
+                    if (@ViewBag.IsFollowing)
+                    {
+                        <a href="@Url.Action("Remove", "UserFollow", new { id = loggedInUsername + "+" + profileOwnerUsername })" class="profile-button unfollow-button">Unfollow</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Add", "UserFollow", new { id = loggedInUsername + "+" + profileOwnerUsername })" class="profile-button follow-button">Follow</a>
+                    }
+
+                    <a href="@Url.Action("DisplayAllFollowers", "UserFollow", new { id = profileOwnerUsername })" class="profile-button">Show Followers</a>
                     <a href="@Url.Action("Add", "Question", new { id = profileOwnerUsername })" class="profile-button">Send Question</a>
                     <a href="@Url.Action("DisplayAll", "Question", new { id = "0" + "dst" + profileOwnerUsername })" class="profile-button">View Questions</a>
                 }
                 else
                 {
+                    <a href="@Url.Action("DisplayAllFollowings", "UserFollow", new { id = profileOwnerUsername })" class="profile-button">Show Followings</a>
+                    <a href="@Url.Action("DisplayAllFollowers", "UserFollow", new { id = profileOwnerUsername })" class="profile-button">Show Followers</a>
                     <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "dst" + profileOwnerUsername })" class="profile-button">Questions To Me</a>
                     <a href="@Url.Action("DisplayAll", "Question", new { id = "1" + "src" + profileOwnerUsername })" class="profile-button">Questions By Me</a>
                 }
@@ -46,23 +63,22 @@
 </div>
 
 <style>
-    /* Styling for the profile page */
     .profile-container {
         background-color: var(--secondary-color);
         border-radius: 10px;
         padding: 20px;
-        width: 300px;
+        width: 350px;
         margin: 0 auto;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         text-align: center;
     }
 
     .profile-picture {
-        width: 100px;
-        height: 100px;
+        width: 120px;
+        height: 120px;
         margin: 0 auto 15px;
         border-radius: 50%;
-        overflow: hidden; /* Ensures the image is clipped to a circle */
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -71,20 +87,20 @@
     .profile-image {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Ensures the image scales nicely */
+        object-fit: cover;
     }
 
     .profile-name {
-        font-size: 24px;
+        font-size: 26px;
         font-weight: bold;
         color: black;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .profile-buttons {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         align-items: center;
         margin-top: 15px;
     }
@@ -100,8 +116,8 @@
         cursor: pointer;
         text-decoration: none;
         display: inline-block;
-        width: 100%; /* Buttons are full-width */
-        max-width: 200px; /* Limit maximum button width */
+        width: 100%;
+        max-width: 250px;
     }
 
         .profile-button:hover {
@@ -109,9 +125,23 @@
             color: var(--tertiary-color);
         }
 
-    .login-warning {
-        font-size: 18px;
-        color: var(--accent-color);
-        margin-top: 20px;
+    .unfollow-button {
+        background-color: #ff6b6b;
     }
-</style>
+
+        .unfollow-button:hover {
+            background-color: #ff4c4c;
+        }
+
+    .followers-info {
+        margin-bottom: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: black;
+    }
+
+    .followers-count {
+        color: black;
+    }
+
+    .

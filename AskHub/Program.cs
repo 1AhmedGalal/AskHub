@@ -28,6 +28,8 @@ namespace AskHub
 
             builder.Services.AddScoped<IAnswerRepository, AnswerSqlRepository>();
 
+            builder.Services.AddScoped<IUserFollowerRepository, UserFollowerSqlRepository>();
+
             builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = true;

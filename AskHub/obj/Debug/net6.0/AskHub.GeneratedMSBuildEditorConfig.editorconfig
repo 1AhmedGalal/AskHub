@@ -72,6 +72,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/UserFollow/DisplayAllFollowers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckZvbGxvd1xEaXNwbGF5QWxsRm9sbG93ZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/UserFollow/DisplayAllFollowings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlckZvbGxvd1xEaXNwbGF5QWxsRm9sbG93aW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/PERSONAL/Programming Resources/Full-Stack/Back-End/5.0 MVC/Project/AskHub/AskHub/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
