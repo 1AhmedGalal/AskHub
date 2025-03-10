@@ -1,16 +1,15 @@
-# E-Commerce API
+# AskHub
 
-A web-based API built using C# and ASP.NET, designed to provide core functionalities for an e-commerce platform. The system allows users to manage their accounts, browse products, place orders.
+A web-based application built using C# and the MVC architecture, designed to have the main features of websites like AskFM and Curious Cat. The system allows users to anonymously ask questions, answer questions, follow users, and manage their profiles.
 
 ## Features
 
 - User Registration and Authentication
-- CRUD Operations for Users, Products, and Orders
-- Secure Authorization and Role-Based Access Control
-- Order Management and Processing
+- CRUD Operations for Questions
+- Answering or Ignoring Questions
+- Following and Unfollowing Users
 
 ## Concepts
 
-- Applying SOLID Principles
+- Applying Solid Princples
 - Using Design Patterns like Repository
-
